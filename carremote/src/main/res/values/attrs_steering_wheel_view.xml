@@ -1,0 +1,13 @@
+<resources>
+    <declare-styleable name="SteeringWheelView">
+        <attr name="ballColor" format="color" />
+        <attr name="arrowRight" format="color|reference" />
+        <attr name="ballSrc" format="color|reference" />
+        <attr name="ballPressedSrc" format="color|reference" />
+    </declare-styleable>
+    <declare-styleable name="RockerView">
+        <attr name="areaBackground" format="color|reference" />
+        <attr name="rockerBackground" format="color|reference" />
+        <attr name="rockerRadius" format="dimension" />
+    </declare-styleable>
+</resources>
