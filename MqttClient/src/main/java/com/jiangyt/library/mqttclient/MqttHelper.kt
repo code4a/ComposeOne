@@ -2,10 +2,7 @@ package com.jiangyt.library.mqttclient
 
 import android.content.Context
 import android.util.Log
-import com.jiangyt.library.mqttclient.data.Duration
-import com.jiangyt.library.mqttclient.data.Motor
-import com.jiangyt.library.mqttclient.data.Power
-import com.jiangyt.library.mqttclient.data.Turn
+import com.jiangyt.library.mqttclient.data.*
 import info.mqtt.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 
@@ -27,8 +24,10 @@ class MqttHelper private constructor() {
         const val MQ_TOPIC_INIT = "${MQ_TOPIC_BASE + MQ_TOPIC_DOWN}/init"
         const val MQ_TOPIC_CB_TURN = "${MQ_TOPIC_BASE + MQ_TOPIC_DOWN}/turn"
         const val MQ_TOPIC_CB_POWER = "${MQ_TOPIC_BASE + MQ_TOPIC_DOWN}/power"
+        const val MQ_TOPIC_CB_SERVO = "${MQ_TOPIC_BASE + MQ_TOPIC_DOWN}/servo"
         const val MQ_TOPIC_TURN = "${MQ_TOPIC_BASE + MQ_TOPIC_UP}/turn"
         const val MQ_TOPIC_POWER = "${MQ_TOPIC_BASE + MQ_TOPIC_UP}/power"
+        const val MQ_TOPIC_SERVO = "${MQ_TOPIC_BASE + MQ_TOPIC_UP}/servo"
 
         val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
             MqttHelper()
@@ -81,6 +80,7 @@ class MqttHelper private constructor() {
                     subscribe(MQ_TOPIC_INIT)
                     subscribe(MQ_TOPIC_CB_TURN)
                     subscribe(MQ_TOPIC_CB_POWER)
+                    subscribe(MQ_TOPIC_CB_SERVO)
                 }
 
                 override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
@@ -125,12 +125,25 @@ class MqttHelper private constructor() {
         }
     }
 
+    /**
+     * 转向
+     */
     fun sendTurn(@Duration duration: Int) {
         publish(MQ_TOPIC_TURN, Turn(duration).toJson())
     }
 
+    /**
+     * 前进/后退
+     */
     fun sendPower(@Motor power: Int) {
         publish(MQ_TOPIC_POWER, Power(power).toJson())
+    }
+
+    /**
+     * 舵机转向
+     */
+    fun sendServo(angle: Int) {
+        publish(MQ_TOPIC_SERVO, Servo(angle).toJson())
     }
 
     private fun publish(topic: String, msg: String, qos: Int = 1, retained: Boolean = false) {

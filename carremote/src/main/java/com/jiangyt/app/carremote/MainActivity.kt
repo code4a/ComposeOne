@@ -20,6 +20,19 @@ class MainActivity : AppCompatActivity() {
         mqttHelper = MqttHelper.instance
         mqttHelper.connect(this)
         mLogLeft = findViewById(R.id.logLeft)
+        findViewById<RockerView>(R.id.rockerViewServo).setOnAngleChangeListener(
+            object : RockerView.OnAngleChangeListener {
+                override fun onStart() {
+                }
+
+                override fun angle(angle: Double) {
+                    mqttHelper.sendServo(angle.toInt())
+                }
+
+                override fun onFinish() {
+                }
+
+            })
         findViewById<RockerView>(R.id.rockerViewLeft).apply {
             setCallBackMode(RockerView.CallBackMode.CALL_BACK_MODE_STATE_CHANGE)
             setOnShakeListener(RockerView.DirectionMode.DIRECTION_8,

@@ -35,11 +35,23 @@
         android:layout_height="150dp"
         android:layout_marginLeft="50dp"
         android:layout_marginBottom="30dp"
-        app:areaBackground="@drawable/default_area_bg"
+        app:areaBackground="@drawable/area_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:rockerBackground="@drawable/default_rocker_bg"
+        app:rockerBackground="@drawable/rocker_bg"
         app:rockerRadius="30dp" />
+
+    <com.jiangyt.app.carremote.view.RockerView
+        android:id="@+id/rockerViewServo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="10dp"
+        app:areaBackground="@drawable/default_area_bg"
+        app:layout_constraintBottom_toTopOf="@id/rockerViewLeft"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:rockerBackground="@drawable/default_rocker_bg"
+        app:rockerRadius="20dp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="150dp"
